@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our's Momment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose: #ff4d6d;
+            --rose-dark: #c9184a;
+            --soft-text: #5e548e;
+            --glass: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 25%, #ffdde1 50%, #fbc2eb 75%, #a6c1ee 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            background-attachment: fixed;
+            color: var(--soft-text);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #bgDecor {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2 { 
+            font-family: 'Dancing Script', cursive; 
+            color: var(--rose-dark); 
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.4); 
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-top: 10vh; }
+        .flower-icon { 
+            font-size: 3.5rem; 
+            margin-top: 20px; 
+            animation: rotate 5s infinite linear, float 3s ease-in-out infinite; 
+            display: inline-block; 
+        }
+        
+        @keyframes rotate { from {transform: rotate(0);} to {transform: rotate(360deg);} }
+        @keyframes float { 
+            0%, 100% { transform: translateY(0) rotate(0); } 
+            50% { transform: translateY(-15px) rotate(10deg); } 
+        }
+
+        /* --- GALLERY SECTION UPDATED FOR ABSTRACT LOOK --- */
+        .gallery { 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; 
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .photo-container {
+            position: relative;
+            width: 280px; 
+            margin-bottom: 40px;
+            padding: 12px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            /* Membuat posisi abstrak di mobile */
+            align-self: center;
+        }
+
+        /* Logic Abstrak: Menggeser foto ganjil/genap agar tidak sejajar lurus */
+        .photo-container:nth-child(odd) { transform: translateX(-15px); }
+        .photo-container:nth-child(even) { transform: translateX(15px); }
+        
+        .polaroid {
+            background: white;
+            padding: 10px 10px 20px 10px;
+            position: relative;
+            z-index: 2;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .polaroid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+        
+        .caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: var(--rose);
+            margin-top: 12px;
+            margin-bottom: 5px;
+        }
+
+        .photo-note {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #7a6a9e;
+            line-height: 1.4;
+            padding: 0 5px;
+            margin-top: 5px;
+        }
+
+        /* Rotasi Variasi Tetap Dipertahankan */
+        .p1 { transform: rotate(-5deg) !important; }
+        .p2 { transform: rotate(5deg) !important; }
+        .p3 { transform: rotate(-3deg) !important; }
+        .p4 { transform: rotate(4deg) !important; }
+        .p5 { transform: rotate(-6deg) !important; }
+        .p6 { transform: rotate(3deg) !important; }
+        
+        .decor-item { 
+            position: absolute; 
+            font-size: 2.5rem; 
+            z-index: 3; 
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.2)); 
+        }
+        .p1 .decor-item { top: -20px; right: -15px; }
+        .p2 .decor-item { bottom: 20px; left: -25px; }
+        .p4 .decor-item { top: -25px; left: -10px; }
+        .p5 .decor-item { bottom: -10px; right: -15px; }
+
+        /* --- ENVELOPE SECTION --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 40px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 260px;
+            height: 160px;
+            background-color: var(--rose);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 5;
+            border-top: 100px solid var(--rose-dark);
+            border-left: 130px solid transparent;
+            border-right: 130px solid transparent;
+            transform-origin: top;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--rose);
+            border-radius: 0 0 15px 15px;
+            z-index: 4;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 50%, 100% 0);
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            width: 220px;
+            height: 140px;
+            background: #fffdf9;
+            padding: 25px 15px;
+            text-align: center;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            opacity: 0;
+        }
+
+        .letter p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: var(--rose-dark);
+            line-height: 1.4;
+        }
+
+        .envelope.open::before { transform: rotateX(180deg); z-index: 1; }
+        .envelope.open .letter {
+            transform: translateY(-165px);
+            height: 260px;
+            z-index: 11;
+            opacity: 1;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 35px; left: 50%;
+            transform: translateX(-50%);
+            color: white; font-size: 35px;
+            z-index: 12; transition: 0.3s;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .envelope.open .heart-seal { opacity: 0; pointer-events: none; }
+
+        .footer-text { 
+            margin-top: 80px; 
+            font-style: italic; 
+            font-size: 1rem; 
+            padding-bottom: 60px; 
+            color: var(--rose-dark);
+            font-weight: bold;
+            text-shadow: 1px 1px 5px rgba(255,255,255,0.5);
+        }
+
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.9); transition: 1.2s all cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+    </style>
+</head>
+<body>
+
+    <div id="bgDecor"></div>
+
+    <section class="hero">
+        <div class="flower-icon">🌸</div>
+        <h1 class="reveal">Halo, Awaa ☁️</h1>
+        <p class="reveal">Kehadiran lo itu kayak warna baru di hari-hari gue yang biasanya flat.</p>
+    </section>
+
+    <section class="gallery">
+        <h2 class="reveal" style="margin-bottom: 50px; width: 100%;">Momen Fotbar Kita ☁️</h2>
+
+        <div class="photo-container p1 reveal">
+            <div class="polaroid">
+                <img src="doc/image.png" alt="Foto 1">
+                <div class="caption">Momen Pertama ✨</div>
+                <p class="photo-note">"Inget nggak pas ini? Kesan pertama ketemu lo tuh aslinya seru banget, padahal gue deg-degan parah."</p>
+            </div>
+            <div class="decor-item">🌸</div>
+        </div>
+
+        <div class="photo-container p2 reveal">
+            <div class="polaroid">
+                <img src="doc/WhatsApp Image 2026-02-07 at 13.21.39.jpeg" alt="Foto 2">
+                <div class="caption">Senyum Favorit ❤️</div>
+                <p class="photo-note">"Di sini gue canggung banget sumpah, bingung mau gaya apa sampe muka gue kelihatan kaku gitu haha."</p>
+            </div>
+            <div class="decor-item">💖</div>
+        </div>
+
+        <div class="photo-container p3 reveal">
+            <div class="polaroid">
+                <img src="doc/WhatsApp Image 2026-02-07 at 13.21.39 (1).jpeg" alt="Foto 3">
+                <div class="caption">Bahagia Terus Ya ✨</div>
+                <p class="photo-note">"Walaupun random dan kadang awkward, tapi foto-foto sama lo selalu jadi favorit gue."</p>
+            </div>
+            <div class="decor-item" style="top: -20px; left: -10px;">✨</div>
+        </div>
+
+        <div class="photo-container p4 reveal">
+            <div class="polaroid">
+                <img src="doc\WhatsApp Image 2026-02-14 at 09.49.11.jpeg" alt="Foto 4">
+                <div class="caption">Cerita Baru ✨</div>
+                <p class="photo-note">"Suka banget sama vibe foto ini, berasa tenang aja gitu kalau lagi bareng."</p>
+            </div>
+            <div class="decor-item">🌼</div>
+        </div>
+
+        <div class="photo-container p5 reveal">
+            <div class="polaroid">
+                <img src="doc\WhatsApp Image 2026-02-14 at 09.49.10.jpeg" alt="Foto 5">
+              <div class="caption">Senyum yang Sama ❤️</div>
+                <p class="photo-note">"Katanya foto bisa menyimpan rasa, dan tiap liat foto ini gue selalu ngerasa se-happy itu."</p>
+            </div>
+            <div class="decor-item">🌷</div>
+        </div>
+
+        <div class="photo-container p6 reveal">
+            <div class="polaroid">
+                <img src="doc\WhatsApp Image 2026-02-14 at 09.49.10 (3).jpeg" alt="Foto 6">
+                <div class="caption">Stay Happy! ☁️</div>
+                <p class="photo-note">"Satu lagi buat kenang-kenangan, semoga tahun depan koleksi fotonya nambah lagi!"</p>
+            </div>
+            <div class="decor-item">🧸</div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="reveal">Buka surat ini...</h2>
+        <div class="envelope-wrapper reveal">
+            <div class="envelope" id="myEnvelope" onclick="toggleEnvelope()">
+                <div class="heart-seal">❤️</div>
+                <div class="letter">
+                    <p style="font-weight: bold; margin-bottom: 12px;">Untuk Teman Terbaik,</p>
+                    <p>Gue cuma mau bilang makasih ya. Sejak ada lo, hari-hari gue yang tadinya kerasa sepi dan biasa aja sekarang jadi jauh lebih seru.</p>
+                    <p>Happy Valentine's Day! 😊</p>
+                    <p style="margin-top: 35px; font-weight: bold; font-size: 1.4rem;">- aldihengkerprotzy -</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-text reveal">"Because a friend like you is sweeter than any chocolate."</p>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        function toggleEnvelope() {
+            document.getElementById('myEnvelope').classList.toggle('open');
+        }
+
+        function createDecor() {
+            const bg = document.getElementById('bgDecor');
+            if(!bg) return;
+            const item = document.createElement('div');
+            const icons = ['❤️','🌸','✨','🌼','💖','🌷','☁️','🧸'];
+            item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            item.style.position = 'absolute';
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.top = '100vh';
+            item.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            item.style.opacity = Math.random() * 0.7 + 0.3;
+            bg.appendChild(item);
+
+            const speed = Math.random() * 4000 + 6000;
+            const anim = item.animate([
+                { transform: 'translateY(0) rotate(0) translateX(0)' },
+                { transform: `translateY(-115vh) rotate(${Math.random() * 360}deg) translateX(${Math.random() * 50 - 25}px)` }
+            ], { duration: speed, easing: 'linear' });
+
+            anim.onfinish = () => item.remove();
+        }
+        
+        setInterval(createDecor, 600);
+        for(let i=0; i<8; i++) { createDecor(); }
+    </script>
+</body>
+</html>
